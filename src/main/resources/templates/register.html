@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registrierung</title>
+</head>
+<body>
+<h2>Registrieren</h2>
+<form action="/register" method="post">
+  <label>Benutzername:</label><br>
+  <input type="text" name="username"><br><br>
+  <label>Passwort:</label><br>
+  <input type="password" name="password"><br><br>
+  <button type="submit">Registrieren</button>
+</form>
+
+<p style="color:red;">[[${error}]]</p>
+<p style="color:green;">[[${message}]]</p>
+
+<p><a href="/">Zurück zum Login</a></p>
+</body>
+</html>
