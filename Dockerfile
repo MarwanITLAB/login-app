@@ -7,8 +7,8 @@ COPY mvnw pom.xml ./
 RUN ./mvnw dependency:go-offline
 
 COPY src ./src
-RUN ./mvnw package -DskipTests
+RUN ./mvnw clean install -DskipTests
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "target/*.jar"]
+CMD sh -c 'java -jar target/*.jar'
