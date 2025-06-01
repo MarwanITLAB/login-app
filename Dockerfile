@@ -1,9 +1,13 @@
-FROM maven:3.9.4-eclipse-temurin-21
+FROM eclipse-temurin:21-jdk
 
 WORKDIR /app
 
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
+
+# 👉 Hier ist die wichtige Zeile!
+RUN chmod +x mvnw
+
 RUN ./mvnw dependency:go-offline
 
 COPY src ./src
