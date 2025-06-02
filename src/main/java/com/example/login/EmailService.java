@@ -8,15 +8,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailService {
 
-    @Autowired
-    private JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
 
-    public void sendeBestaetigungsEmail(String empfaenger, String betreff, String text) {
+    @Autowired
+    public EmailService(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
+
+    public void sendRegistrationEmail(String toEmail, String username) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(empfaenger);
-        message.setSubject(betreff);
-        message.setText(text);
-        message.setFrom("deinname@web.de"); // optional: explizit Absender setzen
+        message.setTo(toEmail);
+        message.setFrom("marwan.arefi@web.de"); // ✅ Setze deine Web.de-Adresse als Absender
+        message.setSubject("Willkommen bei der Login-App!");
+        message.setText("Hallo " + username + ",\n\nvielen Dank für deine Registrierung!");
+
         mailSender.send(message);
     }
 }
