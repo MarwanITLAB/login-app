@@ -1,18 +1,26 @@
 FROM eclipse-temurin:21-jdk
 
+# Arbeitsverzeichnis setzen
 WORKDIR /app
 
+# Maven Wrapper kopieren
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
 
-# 👉 Hier ist die wichtige Zeile!
+# Maven Wrapper ausführbar machen
 RUN chmod +x mvnw
 
-RUN ./mvnw dependency:go-offline
-
-COPY src ./src
+# Abhängigkeiten auflösen und Projekt bauen (ohne Tests)
 RUN ./mvnw clean install -DskipTests
 
+# Quellcode kopieren
+COPY src ./src
+
+# App final bauen (optional, falls vorheriger Schritt nicht reicht)
+RUN ./mvnw package -DskipTests
+
+# Port freigeben
 EXPOSE 8080
 
-CMD sh -c 'java -jar target/*.jar'
+# App starten
+CMD ["java", "-jar", "target/*.jar"]
