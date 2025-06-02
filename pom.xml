@@ -28,11 +28,10 @@
 
         <!-- Mail Support -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
+            java -version
+            javac -version   <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
-
-
 
         <!-- JPA & Datenbank -->
         <dependency>
