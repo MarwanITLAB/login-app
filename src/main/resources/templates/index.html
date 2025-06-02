@@ -31,10 +31,31 @@
     <div class="cta" style="text-align: center; margin-top: 2rem;">
         <a href="/login">🔐 Login</a>
         <a href="/register" style="margin-left: 10px;">📝 Registrieren</a>
-        <a href="#" style="margin-left: 10px; background-color: #ccc; color: #000;">💛 Spenden ohne Registrierung</a>
+        <div style="margin-top: 2rem;">
+            <h3 style="text-align: center;">💛 Spenden (10 €)</h3>
+            <div id="paypal-button-container" style="display: flex; justify-content: center;"></div>
+        </div>
     </div>
 </div>
+<!-- PayPal SDK einbinden (ersetze DEINE_CLIENT_ID durch deine Sandbox-ID) -->
+<script src="https://www.paypal.com/sdk/js?client-id=AdRY8TUJjgrayKtKJFtJLUrDkAtD4SspWIOVlKx-wD1vRpxdQ0BzuhHkzEyshtjLGbs5cn-jdpdEayAe"></script>
 
+<script>
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: { value: '10.00' } // Spendenbetrag
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                alert('Danke für deine Spende, ' + details.payer.name.given_name + '!');
+            });
+        }
+    }).render('#paypal-button-container');
+</script>
 <footer>
     &copy; 2025 I dream of school – Created with hope for every child.
 </footer>
